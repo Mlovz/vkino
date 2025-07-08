@@ -7,48 +7,38 @@ on: [push, pull_request]
 
 jobs:
   build-and-test:
-    name: 🧪 Lint, Test, Typecheck, Build
     runs-on: ubuntu-latest
 
     steps:
-      # ✅ Клонируем репозиторий
       - name: 📥 Checkout repo
         uses: actions/checkout@v4
 
-      # ✅ Устанавливаем Node.js нужной версии
-      - name: 🔧 Use Node.js 20.x
+      - name: 🧰 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: 'yarn'
 
-      # ✅ Устанавливаем зависимости через `npm ci` (чистая установка по lock-файлу)
-      - name: 📦 Install dependencies
-        run: npm ci
+      - name: 📦 Install dependencies (Yarn)
+        run: yarn install --frozen-lockfile
 
-      # ✅ Проверяем линтинг всего проекта
-      - name: 🔍 Run ESLint
-        run: npm run lint
+      - name: 🔍 Lint
+        run: yarn lint
 
-      # ✅ Проверяем форматирование (если кто-то не отформатировал)
-      - name: 🧼 Run Prettier check
-        run: npx prettier --check .
+      - name: 🧼 Prettier check
+        run: yarn prettier --check .
 
-      # ✅ Проверка типов TypeScript
       - name: 🧠 Typecheck
-        run: npx tsc --noEmit
+        run: yarn tsc --noEmit
 
-      # ✅ Прогон unit-тестов с покрытием
-      - name: 🧪 Run Tests with Jest
-        run: npm run test -- --coverage
+      - name: 🧪 Test
+        run: yarn test --coverage
 
-      # ✅ Проверка, что проект действительно собирается
-      - name: 🏗 Build Vite project
-        run: npm run build
+      - name: 🏗 Build
+        run: yarn build
 
-      # ✅ (Дополнительно) Валидация commit сообщений — работает только при push
-      - name: ✅ Check commit messages (commitlint)
+      - name: ✅ Commitlint check
         if: github.event_name == 'push'
         run: |
           git log -1 --pretty=format:%s > commit-msg.txt
-          npx commitlint --edit commit-msg.txt
+          yarn commitlint --edit commit-msg.txt
