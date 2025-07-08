@@ -1,5 +1,7 @@
 function App() {
-  return <>App</>;
+  const a: number = 10;
+
+  return <>{a}</>;
 }
 
 export default App;
