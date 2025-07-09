@@ -1,4 +1,6 @@
 :root {
+  --bg-gray-50: #f9fafb;
+
   --color-bg-primary: #2b2b2b;
   --color-bg--hover-primary: #2b2b2be1;
   --color-bg-secondary: #e7e7e7;
