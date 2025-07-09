@@ -63,6 +63,11 @@
   color: var(--color-text-primary);
 }
 
+.active {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
 .primary:hover:not(:disabled) {
   background: var(--color-bg--hover-primary);
 }

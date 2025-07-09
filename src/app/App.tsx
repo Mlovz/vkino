@@ -5,7 +5,10 @@ function App() {
   return (
     <div>
       <Header />
-      <AppRouter />
+
+      <main className='main container'>
+        <AppRouter />
+      </main>
     </div>
   );
 }
