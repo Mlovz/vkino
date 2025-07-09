@@ -1,8 +1,9 @@
-import { Button } from '@/shared/ui';
+import { Button, Col, Row } from '@/shared/ui';
 import { Filters } from '../model/types';
 import { useState } from 'react';
 import { allGenres } from '../model/constants';
 import cls from './movie-filters.module.css';
+import { useOutsideClick } from '@/shared/hooks';
 
 type MovieFiltersProps = {
   filters: Filters;
@@ -15,8 +16,14 @@ export const MovieFilters = ({
 }: MovieFiltersProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const ref = useOutsideClick<HTMLDivElement>({
+    fn: () => setIsOpen(false),
+    enabled: isOpen,
+  });
+
   const onOpen = () => {
-    setIsOpen(prev => !prev);
+    if (isOpen) return;
+    setIsOpen(true);
   };
 
   const handleGenreChange = (genre: string) => {
@@ -37,12 +44,11 @@ export const MovieFilters = ({
       </Button>
 
       {isOpen && (
-        <div className={cls.filtersPanel}>
-          <div className={cls.filtersContent}>
-            {/* Жанры */}
-            <div>
+        <div className={cls.filtersPanel} ref={ref}>
+          <Col align='start' gap={20}>
+            <Col align='start'>
               <h3 className={cls.filterTitle}>Жанры</h3>
-              <div className={cls.genresList}>
+              <Row gap={10} wrap='wrap'>
                 {allGenres.map(genre => (
                   <label key={genre} className={cls.genreItem}>
                     <input
@@ -54,11 +60,10 @@ export const MovieFilters = ({
                     <span className={cls.genreLabel}>{genre}</span>
                   </label>
                 ))}
-              </div>
-            </div>
+              </Row>
+            </Col>
 
-            {/* Рейтинг */}
-            <div>
+            <Col align='start'>
               <h3 className={cls.filterTitle}>Рейтинг</h3>
               <div className={cls.rangeContainer}>
                 <input
@@ -99,10 +104,9 @@ export const MovieFilters = ({
                 />
                 <span className={cls.rangeValue}>{filters.ratingRange[1]}</span>
               </div>
-            </div>
+            </Col>
 
-            {/* Годы */}
-            <div>
+            <Col align='start'>
               <h3 className={cls.filterTitle}>Годы</h3>
               <div className={cls.rangeContainer}>
                 <input
@@ -141,8 +145,8 @@ export const MovieFilters = ({
                 />
                 <span className={cls.yearValue}>{filters.yearRange[1]}</span>
               </div>
-            </div>
-          </div>
+            </Col>
+          </Col>
         </div>
       )}
     </div>
