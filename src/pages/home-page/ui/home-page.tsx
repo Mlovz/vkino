@@ -1,9 +1,9 @@
-import { MovieSearch } from '@/features/movie-search';
+import { RenderMovieSearchAndFilters } from './reder-movie-search-and-filters';
 
 const HomePage = () => {
   return (
     <>
-      <MovieSearch />
+      <RenderMovieSearchAndFilters />
       <h1>HomePage</h1>
     </>
   );
