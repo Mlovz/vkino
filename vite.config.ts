@@ -31,6 +31,7 @@ export default ({ mode }: Config) => {
     define: {
       __IS_DEV__: JSON.stringify(isDev),
       __API__: JSON.stringify(API_URL),
+      __API_KEY__: JSON.stringify(env.VITE_API_KEY),
     },
   });
 };

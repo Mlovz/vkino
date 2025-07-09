@@ -1,7 +1,13 @@
-function App() {
-  const a: number = 10;
+import { Header } from '@/widgets';
+import { AppRouter } from './providers/router/app-router';
 
-  return <>{a}</>;
+function App() {
+  return (
+    <div>
+      <Header />
+      <AppRouter />
+    </div>
+  );
 }
 
 export default App;

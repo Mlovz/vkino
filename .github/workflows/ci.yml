@@ -1,8 +1,5 @@
-# 📄 CI Pipeline для проверки качества и стабильности кода
-
 name: CI
 
-# 🔁 Запускается при любом пуше или pull request в любой ветке
 on: [push, pull_request]
 
 jobs:
@@ -10,34 +7,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout repo
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: 🧰 Setup Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'yarn'
 
-      - name: 📦 Install dependencies (Yarn)
+      - name: Install dependencies (Yarn)
         run: yarn install --frozen-lockfile
 
-      - name: 🔍 Lint
+      - name: Lint
         run: yarn lint
 
-      - name: 🧼 Prettier check
+      - name: Prettier check
         run: yarn prettier --check .
 
-      - name: 🧠 Typecheck
+      - name: Typecheck
         run: yarn tsc --noEmit
 
-      - name: 🧪 Test
+      - name: Test
         run: yarn test --coverage
 
-      - name: 🏗 Build
+      - name: Build
         run: yarn build
 
-      - name: ✅ Commitlint check
+      - name: Commitlint check
         if: github.event_name == 'push'
         run: |
           git log -1 --pretty=format:%s > commit-msg.txt
