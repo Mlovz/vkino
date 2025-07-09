@@ -1,5 +1,6 @@
 import { ComponentProps, forwardRef, memo, useMemo } from 'react';
 import cls from './button.module.css';
+import { NavLink } from 'react-router-dom';
 
 const variants = {
   primary: cls.primary,
@@ -85,14 +86,14 @@ export const Button = memo(
         const { href, ...rest } = props as AnchorProps;
 
         return (
-          <a
-            href={isDisabled ? undefined : href}
+          <NavLink
+            to={href as string}
             {...rest}
             {...commonProps}
             ref={ref as React.ForwardedRef<HTMLAnchorElement>}
           >
             {children}
-          </a>
+          </NavLink>
         );
       }
 

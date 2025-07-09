@@ -10,3 +10,12 @@
 body {
   background: var(--bg-gray-50);
 }
+
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+}
+
+.main {
+  margin-top: 40px;
+}
