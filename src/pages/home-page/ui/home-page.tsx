@@ -1,7 +1,9 @@
+import { MovieSearch } from '@/features/movie-search';
+
 const HomePage = () => {
   return (
     <>
-      <button>Click</button>
+      <MovieSearch />
       <h1>HomePage</h1>
     </>
   );
