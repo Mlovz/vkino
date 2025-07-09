@@ -1,0 +1,97 @@
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+  max-width: 350px;
+  width: 100%;
+}
+.card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+.imageContainer {
+  position: relative;
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  height: 16rem;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.favoriteButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 9999px;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.favoriteActive {
+  /* background-color: #ef4444; */
+  /* color: #ef4444; */
+}
+
+.favoriteInactive {
+  /* background-color: white;
+  color: #9ca3af;  */
+}
+
+.favoriteButton:hover {
+  /* background-color: #ef4444;
+  color: white; */
+}
+
+.content {
+  padding: 1rem;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.title:hover {
+  color: #2563eb; /* blue-600 */
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #4b5563; /* gray-600 */
+  margin-bottom: 0.5rem;
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+}
+
+.detailIcon {
+  margin-right: 0.25rem;
+}
+
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.genre {
+  padding: 0.25rem 0.5rem;
+  background-color: #f3f4f6; /* gray-100 */
+  color: #374151; /* gray-700 */
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+}

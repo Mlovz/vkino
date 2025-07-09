@@ -11,6 +11,12 @@ body {
   background: var(--bg-gray-50);
 }
 
+button,
+input {
+  border: none;
+  outline: none;
+}
+
 .container {
   max-width: var(--container-width);
   margin: 0 auto;
