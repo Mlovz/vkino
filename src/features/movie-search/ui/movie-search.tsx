@@ -1,6 +1,7 @@
-import { Row } from '@/shared/ui';
+import { IconType, Row } from '@/shared/ui';
 import cls from './movie-search.module.css';
 import { useEffect, useRef } from 'react';
+import Icon from '@/shared/ui/icon/icon';
 
 export const MovieSearch = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -22,7 +23,7 @@ export const MovieSearch = () => {
       onClick={handleFocus}
       className={cls.input_wrap}
     >
-      🔎
+      <Icon type={IconType.SEARCH} />
       <input
         ref={inputRef}
         type='text'

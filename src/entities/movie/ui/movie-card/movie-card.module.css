@@ -21,17 +21,6 @@
   cursor: pointer;
 }
 
-.favoriteButton {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 9999px;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
-}
-
 .content {
   padding: 1rem;
 }
