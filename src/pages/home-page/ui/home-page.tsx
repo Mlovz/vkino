@@ -1,25 +1,40 @@
+import { useCallback } from 'react';
 import { MovieList } from '@/entities/movie/ui';
-import { RenderMovieSearchAndFilters } from './reder-movie-search-and-filters';
-import { mockMovies, Movie } from '@/entities/movie/types';
+import { Movie } from '@/entities/movie/types';
+import { MovieFilters } from '@/features/movie-filters';
+import { MovieSearch } from '@/features/movie-search';
+import { Row } from '@/shared/ui';
+import { useUrlFilters } from '@/entities/movie/hooks/useUrlFilters';
+import { useMovies } from '@/entities/movie/hooks/useMovies';
 
 const HomePage = () => {
-  const onMovieClick = (movie: Movie) => {
-    console.log(movie);
-  };
+  const { filters, updateFilters } = useUrlFilters();
+  const { movies, loading, error } = useMovies(filters);
 
-  const onFavoriteClick = (movie: Movie) => {
-    console.log(movie);
-  };
+  const handleMovieClick = useCallback((movie: Movie) => {
+    console.log('Movie clicked:', movie);
+  }, []);
+
+  const handleFavoriteClick = useCallback((movie: Movie) => {
+    console.log('Favorite clicked:', movie);
+  }, []);
 
   return (
     <>
-      <RenderMovieSearchAndFilters />
+      <Row gap={20}>
+        <MovieSearch />
+        <MovieFilters filters={filters} onFiltersChange={updateFilters} />
+      </Row>
+
       <MovieList
-        movies={mockMovies}
-        onMovieClick={onMovieClick}
-        onFavoriteClick={onFavoriteClick}
+        isLoading={loading}
+        error={error}
+        movies={movies}
+        onMovieClick={handleMovieClick}
+        onFavoriteClick={handleFavoriteClick}
       />
     </>
   );
 };
+
 export default HomePage;

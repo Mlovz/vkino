@@ -6,5 +6,5 @@ import { Loader } from '@/shared/ui';
 export const AppRouter = () => {
   const routes = useRoutes(routeConfig);
 
-  return <Suspense fallback={<Loader />}>{routes}</Suspense>;
+  return <Suspense fallback={<Loader position='fixed' />}>{routes}</Suspense>;
 };

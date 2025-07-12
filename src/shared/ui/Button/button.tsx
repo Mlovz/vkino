@@ -1,6 +1,7 @@
 import { ComponentProps, forwardRef, memo, useMemo } from 'react';
 import cls from './button.module.css';
 import { NavLink } from 'react-router-dom';
+import { clsx } from '@/shared/lib/classnames';
 
 const variants = {
   primary: cls.primary,
@@ -61,17 +62,13 @@ export const Button = memo(
       ref
     ) => {
       const classNames = useMemo(() => {
-        const classes = [
+        return clsx(
           cls.btn,
           variants[variant],
           sizes[size],
           block && cls.block,
-          cls[className],
-        ]
-          .filter(Boolean)
-          .join(' ');
-
-        return classes;
+          cls[className]
+        );
       }, [variant, size, block, className]);
 
       const isDisabled = disabled || loading;

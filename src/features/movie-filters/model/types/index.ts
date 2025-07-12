@@ -1,5 +1,8 @@
-export interface Filters {
+// @/features/movie-filters/model/types.ts
+export type Filters = {
   genres: string[];
-  ratingRange: [number, number];
-  yearRange: [number, number];
-}
+  ratingMin?: number;
+  ratingMax?: number;
+  yearMin?: number;
+  yearMax?: number;
+};

@@ -67,7 +67,7 @@ export const Flex = ({
     ];
 
     return clsx(...args);
-  }, [className, justify, align, direction, block]);
+  }, [className, justify, align, direction, wrap, block]);
 
   return (
     <div className={classes} style={{ gap: gap }} {...rest}>

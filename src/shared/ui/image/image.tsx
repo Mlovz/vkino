@@ -1,5 +1,4 @@
-// AppImage.tsx
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import cls from './image.module.css';
 import { clsx } from '@/shared/lib/classnames';
 
@@ -26,27 +25,30 @@ export const AppImage = ({
   const [hasError, setHasError] = useState(false);
 
   const handleLoad = () => {
-    console.log('Изображение загружено');
     setIsLoading(false);
   };
 
   const handleError = () => {
-    console.log('Ошибка загрузки изображения', src);
     setIsLoading(false);
     setHasError(true);
   };
 
-  const containerStyle = {
-    width,
-    height,
-  };
-
-  const defaultPlaceholder = (
-    <div className={cls.defaultPlaceholder}>Кинопоиск</div>
+  // TODO: была проблема перерасчета стилей при изменении других пропсов, в результате происходил перерендер - поэтому в useMemo
+  const containerStyle = useMemo(
+    () => ({
+      width,
+      height,
+    }),
+    [width, height]
   );
-  const currentPlaceholder = placeholder || defaultPlaceholder;
 
-  console.log(isLoading);
+  // TODO: была проблема возврата каждый раз новой ссылки в результате происходил перерендер - поэтому в useMemo
+  const defaultPlaceholder = useMemo(
+    () => <div className={cls.defaultPlaceholder}>Кинопоиск</div>,
+    []
+  );
+
+  const currentPlaceholder = placeholder || defaultPlaceholder;
 
   return (
     <div
