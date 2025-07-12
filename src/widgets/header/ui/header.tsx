@@ -3,11 +3,8 @@ import cls from './header.module.css';
 import Logo from '@/shared/assets/logo.svg';
 import { ROUTES } from '@/shared/config/route/route-paths';
 import Icon from '@/shared/ui/icon/icon';
-import { useState } from 'react';
 
 export const Header = () => {
-  const [v, setV] = useState(false);
-
   return (
     <header className={cls.header}>
       <div className={cls.header_wrap}>
@@ -23,9 +20,8 @@ export const Header = () => {
                 href={ROUTES.favorites}
                 variant='secondary'
                 className='flex items-center gap-2'
-                onClick={() => setV(!v)}
               >
-                <Icon type={IconType.FAVORITE} active={v} />
+                <Icon type={IconType.FAVORITE} />
                 Избранное (0)
               </Button>
             </Row>
