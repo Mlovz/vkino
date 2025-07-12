@@ -1,6 +1,7 @@
 .header {
   background: white;
   box-shadow: var(--shadow-sm);
+  padding: 0 1rem;
 }
 
 .header_wrap {

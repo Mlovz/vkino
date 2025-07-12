@@ -1,28 +1,38 @@
-import { Row } from '@/shared/ui';
-import { mockMovies, Movie } from '../../types';
+import { Movie } from '../../types';
 import { MovieCard } from '../movie-card/movie-card';
 import cls from './movie-list.module.css';
 
-export const MovieList = () => {
-  const onMovieClick = (movie: Movie) => {
-    console.log(movie);
-  };
+type MovieListProps = {
+  movies: Movie[];
+  isLoading: boolean;
+  onMovieClick: (movie: Movie) => void;
+  onFavoriteClick: (movie: Movie) => void;
+};
 
-  const onFavoriteClick = (movie: Movie) => {
-    console.log(movie);
-  };
+export const MovieList = ({
+  movies,
+  isLoading,
+  onFavoriteClick,
+  onMovieClick,
+}: MovieListProps) => {
+  if (isLoading) {
+    return <div className={cls.empty}>Загрузка...</div>;
+  }
+
+  if (movies.length === 0) {
+    return <div className={cls.empty}>Фильмы и сериалы не найдены</div>;
+  }
 
   return (
-    <Row wrap='wrap' gap={30} className={cls.movieList}>
-      {mockMovies.map(movie => (
+    <div className={cls.movieList}>
+      {movies.map(movie => (
         <MovieCard
           key={movie.id}
           movie={movie}
           onMovieClick={onMovieClick}
           onFavoriteClick={onFavoriteClick}
-          isFavorite={true}
         />
       ))}
-    </Row>
+    </div>
   );
 };

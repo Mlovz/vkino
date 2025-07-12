@@ -12,7 +12,7 @@ export const RenderMovieSearchAndFilters = () => {
   });
 
   return (
-    <Row gap={20} align='center'>
+    <Row gap={20} align='center' style={{ padding: '0 1rem' }}>
       <MovieFilters filters={filters} onFiltersChange={setFilters} />
       <MovieSearch />
     </Row>

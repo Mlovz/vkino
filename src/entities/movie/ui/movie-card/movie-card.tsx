@@ -1,32 +1,31 @@
 import { FC } from 'react';
 import cls from './movie-card.module.css';
 import { Movie } from '../../types';
+import { AppImage } from '@/shared/ui';
 
 type Props = {
   movie: Movie;
   onMovieClick: (movie: Movie) => void;
   onFavoriteClick: (movie: Movie) => void;
-  isFavorite: boolean;
 };
 
 export const MovieCard: FC<Props> = ({
   movie,
   onMovieClick,
   onFavoriteClick,
-  isFavorite,
 }) => {
   return (
     <div className={cls.card}>
       <div className={cls.imageContainer}>
-        <img
+        <AppImage
           src={movie.poster.previewUrl}
           alt={movie.name ?? ''}
           className={cls.image}
-          onClick={() => onMovieClick(movie)}
+          // onClick={() => onMovieClick(movie)}
         />
         <button
           onClick={() => onFavoriteClick(movie)}
-          className={`${cls.favoriteButton} ${isFavorite ? cls.favoriteActive : cls.favoriteInactive}`}
+          className={cls.favoriteButton}
         >
           🤍
         </button>

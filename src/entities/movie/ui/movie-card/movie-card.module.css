@@ -4,7 +4,6 @@
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.2s ease;
-  max-width: 350px;
   width: 100%;
 }
 .card:hover {
@@ -33,21 +32,6 @@
     color 0.2s;
 }
 
-.favoriteActive {
-  /* background-color: #ef4444; */
-  /* color: #ef4444; */
-}
-
-.favoriteInactive {
-  /* background-color: white;
-  color: #9ca3af;  */
-}
-
-.favoriteButton:hover {
-  /* background-color: #ef4444;
-  color: white; */
-}
-
 .content {
   padding: 1rem;
 }
@@ -61,7 +45,7 @@
 }
 
 .title:hover {
-  color: #2563eb; /* blue-600 */
+  color: #2563eb;
 }
 
 .details {
@@ -69,7 +53,7 @@
   justify-content: space-between;
   align-items: center;
   font-size: 0.875rem;
-  color: #4b5563; /* gray-600 */
+  color: #4b5563;
   margin-bottom: 0.5rem;
 }
 
@@ -90,8 +74,8 @@
 
 .genre {
   padding: 0.25rem 0.5rem;
-  background-color: #f3f4f6; /* gray-100 */
-  color: #374151; /* gray-700 */
+  background-color: #f3f4f6;
+  color: #374151;
   font-size: 0.75rem;
   border-radius: 0.25rem;
 }
