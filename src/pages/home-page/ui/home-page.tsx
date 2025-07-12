@@ -6,14 +6,19 @@ import { MovieSearch } from '@/features/movie-search';
 import { Row } from '@/shared/ui';
 import { useUrlFilters } from '@/entities/movie/hooks/useUrlFilters';
 import { useMovies } from '@/entities/movie/hooks/useMovies';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const { filters, updateFilters } = useUrlFilters();
   const { movies, loading, error } = useMovies(filters);
+  const navigate = useNavigate();
 
-  const handleMovieClick = useCallback((movie: Movie) => {
-    console.log('Movie clicked:', movie);
-  }, []);
+  const handleMovieClick = useCallback(
+    (movie: Movie) => {
+      navigate(`/movie/${movie.id}`);
+    },
+    [navigate]
+  );
 
   const handleFavoriteClick = useCallback((movie: Movie) => {
     console.log('Favorite clicked:', movie);
