@@ -1,7 +1,8 @@
-import { Button, Row } from '@/shared/ui';
+import { Button, IconType, Row } from '@/shared/ui';
 import cls from './header.module.css';
 import Logo from '@/shared/assets/logo.svg';
 import { ROUTES } from '@/shared/config/route/route-paths';
+import Icon from '@/shared/ui/icon/icon';
 
 export const Header = () => {
   return (
@@ -20,7 +21,8 @@ export const Header = () => {
                 variant='secondary'
                 className='flex items-center gap-2'
               >
-                🤍 Избранное (0)
+                <Icon type={IconType.FAVORITE} />
+                Избранное (0)
               </Button>
             </Row>
           </nav>

@@ -2,6 +2,7 @@ import { memo } from 'react';
 import cls from './movie-card.module.css';
 import { Movie } from '../../types';
 import { AppImage } from '@/shared/ui';
+import { AddToFavorites } from '@/features/add-to-favorites/ui';
 
 type Props = {
   movie: Movie;
@@ -20,12 +21,8 @@ export const MovieCard = memo(
             className={cls.image}
             // onClick={() => onMovieClick(movie)}
           />
-          <button
-            onClick={() => onFavoriteClick(movie)}
-            className={cls.favoriteButton}
-          >
-            🤍
-          </button>
+
+          <AddToFavorites movie={movie} onFavoriteClick={onFavoriteClick} />
         </div>
         <div className={cls.content}>
           <h3 className={cls.title} onClick={() => onMovieClick(movie)}>
