@@ -1,5 +1,5 @@
+import { useFavoritesMovie } from '@/features/add-to-favorites/model';
 import { observer } from 'mobx-react-lite';
-import { useFavoritesMovie } from '../model/hooks/useFavoritesMovie';
 
 const FavoritesPage = observer(() => {
   const favoriteMovies = useFavoritesMovie();
