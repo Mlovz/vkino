@@ -7,8 +7,8 @@ export interface MovieFilters {
   selectFields?: string[];
   'genres.name'?: string[];
   'rating.kp'?: string;
-  'releaseYears.start'?: number;
-  'releaseYears.end'?: number;
+  yearMin?: number;
+  yearMax?: number;
 }
 
 interface FetchMoviesResponse {
@@ -25,11 +25,12 @@ const buildParams = (filters: MovieFilters): URLSearchParams => {
   if (filters.page) params.set('page', String(filters.page));
   if (filters.limit) params.set('limit', String(filters.limit));
   if (filters['rating.kp']) params.set('rating.kp', filters['rating.kp']);
-  if (filters['releaseYears.start']) {
-    params.set('releaseYears.start', String(filters['releaseYears.start']));
+
+  if (filters.yearMin) {
+    params.append('year', String(filters.yearMin));
   }
-  if (filters['releaseYears.end']) {
-    params.set('releaseYears.end', String(filters['releaseYears.end']));
+  if (filters.yearMax) {
+    params.append('year', String(filters.yearMax));
   }
 
   filters.selectFields?.forEach(field => params.append('selectFields', field));

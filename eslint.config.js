@@ -23,7 +23,9 @@ export default tseslint.config(
         ecmaVersion: 2020,
         globals: globals.browser,
       },
-      rules: {},
+      rules: {
+        'react-hooks/exhaustive-deps': 'off',
+      },
     },
   ],
   storybook.configs['flat/recommended']

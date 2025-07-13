@@ -1,32 +1,55 @@
 import { clsx } from '@/shared/lib/classnames';
-import { IconType } from '@/shared/ui';
+import { Button, IconType, Modal, Row } from '@/shared/ui';
 import Icon from '@/shared/ui/icon/icon';
 import { useState } from 'react';
 import cls from './add-to-favorites.module.css';
-import { Movie } from '@/entities/movie/types';
+import favoritesStore from '../model/store/favorites-store';
+import { observer } from 'mobx-react-lite';
 
-type Props = {
-  onFavoriteClick: (movie: Movie) => void;
-  movie: Movie;
-};
+interface Props {
+  movieId: number;
+  movieName: string;
+}
 
-export const AddToFavorites = ({ onFavoriteClick, movie }: Props) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+export const AddToFavorites = observer(({ movieId, movieName }: Props) => {
+  const [showModal, setShowModal] = useState(false);
 
-  const onFavorite = () => {
-    setIsFavorite(!isFavorite);
+  const onToggle = () => {
+    if (favoritesStore.isFavorite(movieId)) {
+      favoritesStore.removeFavorite(movieId);
+    } else {
+      favoritesStore.addFavorite(movieId);
+    }
+
+    setShowModal(false);
   };
 
   return (
-    <button
-      onClick={() => onFavoriteClick(movie)}
-      className={cls.addToFavorites}
-    >
-      <Icon
-        type={IconType.FAVORITE}
-        className={clsx(isFavorite && cls.active)}
-        onClick={onFavorite}
-      />
-    </button>
+    <>
+      <button className={cls.addToFavorites}>
+        <Icon
+          type={IconType.FAVORITE}
+          className={clsx(favoritesStore.isFavorite(movieId) && cls.active)}
+          onClick={() => setShowModal(true)}
+        />
+      </button>
+
+      {showModal && (
+        <Modal>
+          {favoritesStore.isFavorite(movieId) ? (
+            <h3>Вы уверены, что хотите удалить "{movieName}" из избранное?</h3>
+          ) : (
+            <h3>Вы уверены, что хотите добавить "{movieName}" в избранное?</h3>
+          )}
+
+          <Row align='center' justify='end' gap={20}>
+            <Button onClick={() => setShowModal(false)} variant='secondary'>
+              Нет
+            </Button>
+            <Button onClick={onToggle}>Да</Button>
+          </Row>
+        </Modal>
+      )}
+    </>
   );
-};
+});

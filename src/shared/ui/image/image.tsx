@@ -21,7 +21,7 @@ export const AppImage = ({
   placeholder,
   objectFit = 'cover',
 }: AppImageProps) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(src ? true : false);
   const [hasError, setHasError] = useState(false);
 
   const handleLoad = () => {
@@ -44,7 +44,7 @@ export const AppImage = ({
 
   // TODO: была проблема возврата каждый раз новой ссылки в результате происходил перерендер - поэтому в useMemo
   const defaultPlaceholder = useMemo(
-    () => <div className={cls.defaultPlaceholder}>Кинопоиск</div>,
+    () => <div className={cls.defaultPlaceholder}>VKINO</div>,
     []
   );
 
@@ -55,7 +55,9 @@ export const AppImage = ({
       className={clsx(cls.container, cls[objectFit], className)}
       style={containerStyle}
     >
-      {(isLoading || hasError) && <>{currentPlaceholder}</>}
+      {!src && <>{currentPlaceholder}</>}
+      {isLoading && !hasError && <div className={cls.skeleton} />}
+      {!isLoading && hasError && <div className={cls.error} />}
 
       <img
         src={src}
