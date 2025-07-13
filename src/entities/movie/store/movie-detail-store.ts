@@ -38,7 +38,6 @@ class MovieDetailStore {
   async loadMovie(id: number) {
     const entry = this.getOrCreateEntry(id);
 
-    // Если фильм уже загружен, не загружаем повторно
     if (entry.movie || entry.loading) {
       return;
     }

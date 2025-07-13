@@ -133,7 +133,6 @@ class MoviesStore {
     const key = this.createCacheKey(filters);
     const entry = this.getOrCreateCacheEntry(key);
 
-    // Если фильтры не изменились и данные уже есть, не делаем дебаунс
     if (!forceReload && this.lastFilters === key && entry.movies.length > 0) {
       return;
     }
@@ -143,7 +142,6 @@ class MoviesStore {
     }
 
     const timeout = setTimeout(() => {
-      // Очищаем кэш только если фильтры действительно изменились
       if (this.lastFilters !== key || forceReload) {
         this.cache.delete(key);
         this.lastFilters = key;
@@ -155,12 +153,10 @@ class MoviesStore {
     this.debounceTimeouts.set(key, timeout);
   }
 
-  // Новый метод для первичной загрузки без дебаунса
   loadMoviesInitial(filters: Filters) {
     const key = this.createCacheKey(filters);
     const entry = this.getOrCreateCacheEntry(key);
 
-    // Если данные уже есть, не загружаем повторно
     if (entry.movies.length > 0) {
       return;
     }
