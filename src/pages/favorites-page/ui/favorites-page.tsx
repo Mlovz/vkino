@@ -25,6 +25,7 @@ const FavoritesPage = observer(() => {
         isLoading={isLoading}
         movies={favoriteMovies}
         onMovieClick={handleMovieClick}
+        onLoadMore={() => console.log('load more')}
       />
     </div>
   );
