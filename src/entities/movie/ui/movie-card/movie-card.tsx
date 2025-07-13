@@ -7,45 +7,44 @@ import { AddToFavorites } from '@/features/add-to-favorites/ui';
 type Props = {
   movie: Movie;
   onMovieClick: (movie: Movie) => void;
-  onFavoriteClick: (movie: Movie) => void;
 };
 
-export const MovieCard = memo(
-  ({ movie, onMovieClick, onFavoriteClick }: Props) => {
-    return (
-      <div className={cls.card}>
-        <div className={cls.imageContainer}>
-          <AppImage
-            src={movie.poster?.url || movie.poster?.previewUrl}
-            alt={movie.name ?? ''}
-            className={cls.image}
-            // onClick={() => onMovieClick(movie)}
-          />
+export const MovieCard = memo(({ movie, onMovieClick }: Props) => {
+  return (
+    <div className={cls.card}>
+      <div className={cls.imageContainer}>
+        <AppImage
+          src={movie.poster?.url || movie.poster?.previewUrl}
+          alt={movie.name ?? ''}
+          className={cls.image}
+        />
 
-          <AddToFavorites movie={movie} onFavoriteClick={onFavoriteClick} />
+        <AddToFavorites
+          movieId={movie.id}
+          movieName={movie.name || movie.alternativeName}
+        />
+      </div>
+      <div className={cls.content}>
+        <h3 className={cls.title} onClick={() => onMovieClick(movie)}>
+          {movie.name || movie.alternativeName}
+        </h3>
+        <div className={cls.details}>
+          <span className={cls.detailItem}>
+            🗓
+            {movie.year}
+          </span>
+          <span className={cls.detailItem}>
+            ⭐{movie?.rating?.kp.toFixed(1)}
+          </span>
         </div>
-        <div className={cls.content}>
-          <h3 className={cls.title} onClick={() => onMovieClick(movie)}>
-            {movie.name}
-          </h3>
-          <div className={cls.details}>
-            <span className={cls.detailItem}>
-              🗓
-              {movie.year}
+        <div className={cls.genres}>
+          {movie.genres?.slice(0, 3).map((genre, i) => (
+            <span key={i} className={cls.genre}>
+              {genre?.name}
             </span>
-            <span className={cls.detailItem}>
-              ⭐{movie.rating.kp.toFixed(1)}
-            </span>
-          </div>
-          <div className={cls.genres}>
-            {movie.genres?.slice(0, 3).map((genre, i) => (
-              <span key={i} className={cls.genre}>
-                {genre.name}
-              </span>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
-    );
-  }
-);
+    </div>
+  );
+});

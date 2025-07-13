@@ -5,16 +5,26 @@ import { fetchMovieById } from '@/entities/movie/api';
 
 export const useFavoritesMovie = () => {
   const [favoriteMovies, setFavoriteMovies] = useState<Movie[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const loadFavorites = async () => {
-      const movies = await Promise.all(
-        favoritesStore.favorites.map(id => fetchMovieById(id))
-      );
-      setFavoriteMovies(movies);
+      setIsLoading(true);
+      try {
+        const movies = await Promise.all(
+          favoritesStore.favorites.map(id => fetchMovieById(id))
+        );
+        setFavoriteMovies(movies);
+      } catch (error) {
+        console.log('Ошибка при загрузке избранных фильмов', error);
+        setFavoriteMovies([]);
+      } finally {
+        setIsLoading(false);
+      }
     };
+
     loadFavorites();
   }, []);
 
-  return favoriteMovies;
+  return { favoriteMovies, isLoading };
 };

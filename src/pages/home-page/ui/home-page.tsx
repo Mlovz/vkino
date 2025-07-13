@@ -20,10 +20,6 @@ const HomePage = () => {
     [navigate]
   );
 
-  const handleFavoriteClick = useCallback((movie: Movie) => {
-    console.log('Favorite clicked:', movie);
-  }, []);
-
   return (
     <>
       <Row gap={20}>
@@ -36,7 +32,6 @@ const HomePage = () => {
         error={error}
         movies={movies}
         onMovieClick={handleMovieClick}
-        onFavoriteClick={handleFavoriteClick}
       />
     </>
   );

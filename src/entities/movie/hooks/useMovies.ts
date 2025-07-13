@@ -4,7 +4,15 @@ import { Movie } from '@/entities/movie/types';
 import { Filters } from './useUrlFilters';
 // import { useDebounce } from '@/shared/hooks';
 
-const SELECTED_FIELDS = ['id', 'name', 'year', 'rating', 'poster', 'genres'];
+const SELECTED_FIELDS = [
+  'id',
+  'name',
+  'alternativeName',
+  'year',
+  'rating',
+  'poster',
+  'genres',
+];
 
 export const useMovies = (filters: Filters) => {
   const [movies, setMovies] = useState<Movie[]>([]);

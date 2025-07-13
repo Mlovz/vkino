@@ -3,8 +3,10 @@ import cls from './header.module.css';
 import Logo from '@/shared/assets/logo.svg';
 import { ROUTES } from '@/shared/config/route/route-paths';
 import Icon from '@/shared/ui/icon/icon';
+import favoritesStore from '@/features/add-to-favorites/model/store/favorites-store';
+import { observer } from 'mobx-react-lite';
 
-export const Header = () => {
+export const Header = observer(() => {
   return (
     <header className={cls.header}>
       <div className={cls.header_wrap}>
@@ -22,7 +24,7 @@ export const Header = () => {
                 className='flex items-center gap-2'
               >
                 <Icon type={IconType.FAVORITE} />
-                Избранное (0)
+                Избранное ({favoritesStore.favorites.length})
               </Button>
             </Row>
           </nav>
@@ -30,4 +32,4 @@ export const Header = () => {
       </div>
     </header>
   );
-};
+});
