@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { fetchMovies } from '@/entities/movie/api';
 import { Movie } from '@/entities/movie/types';
 import { Filters } from './useUrlFilters';
-// import { useDebounce } from '@/shared/hooks';
 
 const SELECTED_FIELDS = [
   'id',
@@ -37,8 +36,8 @@ export const useMovies = (filters: Filters) => {
             filters.ratingMin !== undefined && filters.ratingMax !== undefined
               ? `${filters.ratingMin}-${filters.ratingMax}`
               : undefined,
-          'releaseYears.start': filters.yearMin,
-          'releaseYears.end': filters.yearMax,
+          yearMin: filters.yearMin,
+          yearMax: filters.yearMax,
           page: 1,
           limit: 10,
         };
@@ -68,29 +67,4 @@ export const useMovies = (filters: Filters) => {
   ]);
 
   return { movies, loading, error };
-};
-
-export const useSmartDebounce = <T>(value: T, delay: number): T => {
-  const [debouncedValue, setDebouncedValue] = useState<T>(value);
-  const timeoutRef = useRef<NodeJS.Timeout>(null);
-
-  useEffect(() => {
-    // Очищаем предыдущий таймер
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-
-    timeoutRef.current = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
-
-    // Cleanup function
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, [value, delay]);
-
-  return debouncedValue;
 };

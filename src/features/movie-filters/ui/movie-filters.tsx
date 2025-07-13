@@ -1,8 +1,7 @@
-import { Button, Col, Row } from '@/shared/ui';
+import { Col, Row } from '@/shared/ui';
 import { allGenres } from '../model/constants';
 import cls from './movie-filters.module.css';
-import { useOutsideClick } from '@/shared/hooks';
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { Filters } from '@/entities/movie/hooks/useUrlFilters';
 
 interface MovieFiltersProps {
@@ -14,14 +13,6 @@ export const MovieFilters = ({
   filters,
   onFiltersChange,
 }: MovieFiltersProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  // TODO: есть проблема с кликом на самой кнопки при закрытия
-  const ref = useOutsideClick<HTMLDivElement>({
-    fn: () => setIsOpen(false),
-    enabled: isOpen,
-  });
-
   const handleGenreChange = useCallback(
     (genre: string) => {
       const newGenres = filters.genres.includes(genre)
@@ -46,29 +37,25 @@ export const MovieFilters = ({
 
   return (
     <div className={cls.filtersWrapper}>
-      <Button variant='secondary' onClick={() => setIsOpen(!isOpen)}>
-        Фильтры
-      </Button>
+      <div className={cls.filtersPanel}>
+        <Col align='start' gap={20}>
+          <Col align='start'>
+            <h3>Жанры</h3>
+            <Row gap={10} wrap='wrap'>
+              {allGenres.map(genre => (
+                <label key={genre} className={cls.genreItem}>
+                  <input
+                    type='checkbox'
+                    checked={filters.genres.includes(genre)}
+                    onChange={() => handleGenreChange(genre)}
+                  />
+                  <span>{genre}</span>
+                </label>
+              ))}
+            </Row>
+          </Col>
 
-      {isOpen && (
-        <div className={cls.filtersPanel} ref={ref}>
-          <Col align='start' gap={20}>
-            <Col align='start'>
-              <h3>Жанры</h3>
-              <Row gap={10} wrap='wrap'>
-                {allGenres.map(genre => (
-                  <label key={genre} className={cls.genreItem}>
-                    <input
-                      type='checkbox'
-                      checked={filters.genres.includes(genre)}
-                      onChange={() => handleGenreChange(genre)}
-                    />
-                    <span>{genre}</span>
-                  </label>
-                ))}
-              </Row>
-            </Col>
-
+          <Row align='start' gap={20} wrap='wrap'>
             <Col align='start'>
               <h3>Рейтинг</h3>
               <div className={cls.rangeContainer}>
@@ -116,9 +103,9 @@ export const MovieFilters = ({
                 <span>{filters.yearMax ?? 2025}</span>
               </div>
             </Col>
-          </Col>
-        </div>
-      )}
+          </Row>
+        </Col>
+      </div>
     </div>
   );
 };

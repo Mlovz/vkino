@@ -24,15 +24,17 @@ const HomePage = () => {
     <>
       <Row gap={20}>
         <MovieSearch />
-        <MovieFilters filters={filters} onFiltersChange={updateFilters} />
       </Row>
 
-      <MovieList
-        isLoading={loading}
-        error={error}
-        movies={movies}
-        onMovieClick={handleMovieClick}
-      />
+      <div>
+        <MovieFilters filters={filters} onFiltersChange={updateFilters} />
+        <MovieList
+          isLoading={loading}
+          error={error}
+          movies={movies}
+          onMovieClick={handleMovieClick}
+        />
+      </div>
     </>
   );
 };
