@@ -4,6 +4,7 @@ import { allGenres } from '../model/constants';
 import cls from './movie-filters.module.css';
 import { useCallback } from 'react';
 import { Filters } from '@/entities/movie/hooks/useUrlFilters';
+import Checkbox from '@/shared/ui/checkbox/checkbox';
 
 interface MovieFiltersProps {
   filters: Filters;
@@ -13,10 +14,10 @@ interface MovieFiltersProps {
 export const MovieFilters = observer(
   ({ filters, onFiltersChange }: MovieFiltersProps) => {
     const handleGenreChange = useCallback(
-      (genre: string) => {
-        const newGenres = filters.genres.includes(genre)
-          ? filters.genres.filter(g => g !== genre)
-          : [...filters.genres, genre];
+      (genre: string) => (checked: boolean) => {
+        const newGenres = checked
+          ? [...filters.genres, genre]
+          : filters.genres.filter(g => g !== genre);
 
         onFiltersChange({ genres: newGenres });
       },
@@ -42,14 +43,13 @@ export const MovieFilters = observer(
               <h3>Жанры</h3>
               <Row gap={10} wrap='wrap'>
                 {allGenres.map(genre => (
-                  <label key={genre} className={cls.genreItem}>
-                    <input
-                      type='checkbox'
-                      checked={filters.genres.includes(genre)}
-                      onChange={() => handleGenreChange(genre)}
-                    />
-                    <span>{genre}</span>
-                  </label>
+                  <Checkbox
+                    key={genre}
+                    label={genre}
+                    checked={filters.genres.includes(genre)}
+                    onChange={handleGenreChange(genre)}
+                    className={cls.genreCheckbox}
+                  />
                 ))}
               </Row>
             </Col>
