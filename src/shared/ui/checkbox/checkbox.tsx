@@ -1,6 +1,5 @@
-// Checkbox.tsx
 import React from 'react';
-import styles from './Checkbox.module.css';
+import styles from './checkbox.module.css';
 
 type CheckboxSize = 'small' | 'medium' | 'large';
 
