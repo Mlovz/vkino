@@ -70,3 +70,8 @@
 .rangeSeparator {
   font-size: 0.875rem;
 }
+
+.ratingSlider,
+.yearSlider {
+  width: 400px;
+}
