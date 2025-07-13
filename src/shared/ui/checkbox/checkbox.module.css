@@ -1,0 +1,137 @@
+.checkboxContainer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkboxContainer.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.hiddenCheckbox {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.customCheckbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #d1d5db;
+  border-radius: 4px;
+  background-color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  flex-shrink: 0;
+}
+
+.customCheckbox:hover {
+  border-color: var(--color-bg-primary);
+}
+
+.customCheckbox.checked {
+  background-color: var(--color-bg-primary);
+  border-color: var(--color-bg-primary);
+}
+
+.customCheckbox.checked:hover {
+  background-color: var(--color-bg--hover-primary);
+  border-color: var(--color-bg--hover-primary);
+}
+
+.customCheckbox.disabled {
+  background-color: #f9fafb;
+  border-color: #e5e7eb;
+  cursor: not-allowed;
+}
+
+.customCheckbox.disabled.checked {
+  background-color: #9ca3af;
+  border-color: #9ca3af;
+}
+
+.checkmark {
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+  animation: checkmarkSlide 0.2s ease-in-out;
+}
+
+@keyframes checkmarkSlide {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.labelText {
+  color: #374151;
+  font-size: 14px;
+}
+
+.disabled .labelText {
+  color: #9ca3af;
+}
+
+.small .customCheckbox {
+  width: 16px;
+  height: 16px;
+}
+
+.small .labelText {
+  font-size: 12px;
+}
+
+.medium .customCheckbox {
+  width: 20px;
+  height: 20px;
+}
+
+.medium .labelText {
+  font-size: 14px;
+}
+
+.large .customCheckbox {
+  width: 24px;
+  height: 24px;
+}
+
+.large .labelText {
+  font-size: 16px;
+}
+
+.hiddenCheckbox:focus + .checkboxLabel .customCheckbox {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.hiddenCheckbox:focus:not(:focus-visible) + .checkboxLabel .customCheckbox {
+  outline: none;
+}
