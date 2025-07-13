@@ -5,6 +5,7 @@ import cls from './movie-filters.module.css';
 import { useCallback } from 'react';
 import { Filters } from '@/entities/movie/hooks/useUrlFilters';
 import Checkbox from '@/shared/ui/checkbox/checkbox';
+import DualRangeSlider from '@/shared/ui/rande-slider/dual-range-slider';
 
 interface MovieFiltersProps {
   filters: Filters;
@@ -24,16 +25,35 @@ export const MovieFilters = observer(
       [filters.genres, onFiltersChange]
     );
 
-    const createRangeHandler = useCallback(
-      (key: keyof Filters) => (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = key.includes('rating')
-          ? parseFloat(e.target.value)
-          : parseInt(e.target.value);
-
-        onFiltersChange({ [key]: value });
+    const handleRatingMinChange = useCallback(
+      (value: number) => {
+        onFiltersChange({ ratingMin: value });
       },
       [onFiltersChange]
     );
+
+    const handleRatingMaxChange = useCallback(
+      (value: number) => {
+        onFiltersChange({ ratingMax: value });
+      },
+      [onFiltersChange]
+    );
+
+    const handleYearMinChange = useCallback(
+      (value: number) => {
+        onFiltersChange({ yearMin: value });
+      },
+      [onFiltersChange]
+    );
+
+    const handleYearMaxChange = useCallback(
+      (value: number) => {
+        onFiltersChange({ yearMax: value });
+      },
+      [onFiltersChange]
+    );
+
+    const formatRating = useCallback((value: number) => value.toFixed(1), []);
 
     return (
       <div className={cls.filtersWrapper}>
@@ -55,52 +75,33 @@ export const MovieFilters = observer(
             </Col>
 
             <Row align='start' gap={20} wrap='wrap'>
-              <Col align='start'>
-                <h3>Рейтинг</h3>
-                <div className={cls.rangeContainer}>
-                  <input
-                    type='range'
-                    min='0'
-                    max='10'
-                    step='0.1'
-                    value={filters.ratingMin ?? 0}
-                    onChange={createRangeHandler('ratingMin')}
-                  />
-                  <span>{filters.ratingMin ?? 0}</span>
-                  <span>-</span>
-                  <input
-                    type='range'
-                    min='0'
-                    max='10'
-                    step='0.1'
-                    value={filters.ratingMax ?? 10}
-                    onChange={createRangeHandler('ratingMax')}
-                  />
-                  <span>{filters.ratingMax ?? 10}</span>
-                </div>
+              <Col align='start' className={cls.filterGroup}>
+                <DualRangeSlider
+                  label='Рейтинг'
+                  min={0}
+                  max={10}
+                  step={0.1}
+                  valueMin={filters.ratingMin ?? 0}
+                  valueMax={filters.ratingMax ?? 10}
+                  onMinChange={handleRatingMinChange}
+                  onMaxChange={handleRatingMaxChange}
+                  formatValue={formatRating}
+                  className={cls.ratingSlider}
+                />
               </Col>
 
-              <Col align='start'>
-                <h3>Годы</h3>
-                <div className={cls.rangeContainer}>
-                  <input
-                    type='range'
-                    min='1990'
-                    max='2025'
-                    value={filters.yearMin ?? 1990}
-                    onChange={createRangeHandler('yearMin')}
-                  />
-                  <span>{filters.yearMin ?? 1990}</span>
-                  <span>-</span>
-                  <input
-                    type='range'
-                    min='1990'
-                    max='2025'
-                    value={filters.yearMax ?? 2025}
-                    onChange={createRangeHandler('yearMax')}
-                  />
-                  <span>{filters.yearMax ?? 2025}</span>
-                </div>
+              <Col align='start' className={cls.filterGroup}>
+                <DualRangeSlider
+                  label='Годы'
+                  min={1990}
+                  max={2025}
+                  step={1}
+                  valueMin={filters.yearMin ?? 1990}
+                  valueMax={filters.yearMax ?? 2025}
+                  onMinChange={handleYearMinChange}
+                  onMaxChange={handleYearMaxChange}
+                  className={cls.yearSlider}
+                />
               </Col>
             </Row>
           </Col>
