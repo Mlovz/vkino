@@ -16,8 +16,11 @@ jobs:
           node-version: 20
           cache: 'npm'
 
+      - name: Clean node modules and lock file
+        run: rm -rf node_modules package-lock.json
+
       - name: Install dependencies (npm)
-        run: npm ci
+        run: npm install
 
       - name: Lint
         run: npm run lint
