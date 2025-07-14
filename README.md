@@ -10,7 +10,7 @@ cd vkino
 ### 2. Установите зависимости
 
 ```bash
-npm install
+yarn
 ```
 
 ### 3. Создайте `.env` файл
@@ -24,7 +24,7 @@ cp .env.default .env
 ### 4. Запустите приложение
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 Приложение будет доступно по адресу:
@@ -50,7 +50,7 @@ VITE_PORT=3000
 ## Сборка
 
 ```bash
-npm run build
+yarn build
 ```
 
 Собранные файлы будут находиться в папке `dist`.
