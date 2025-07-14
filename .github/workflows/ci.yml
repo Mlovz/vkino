@@ -20,7 +20,7 @@ jobs:
         run: rm -rf node_modules package-lock.json
 
       - name: Install dependencies (npm)
-        run: npm install
+        run: npm ci
 
       - name: Lint
         run: npm run lint
