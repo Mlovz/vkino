@@ -1,5 +1,3 @@
-/* button.module.css */
-
 .btn {
   display: inline-flex;
   align-items: center;
@@ -195,28 +193,4 @@
     font-size: 18px;
     min-height: 52px;
   }
-}
-
-.btn.favorite {
-}
-
-.btn.favorite:hover:not(:disabled) {
-}
-
-.btn.watch {
-}
-
-.btn.watch:hover:not(:disabled) {
-}
-
-.btn.favorite,
-.btn.watch {
-}
-
-.btn.favorite::after,
-.btn.watch::after {
-}
-
-.btn.favorite:active::after,
-.btn.watch:active::after {
 }

@@ -67,7 +67,7 @@ export const Button = memo(
           variants[variant],
           sizes[size],
           block && cls.block,
-          cls[className]
+          className
         );
       }, [variant, size, block, className]);
 

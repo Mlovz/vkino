@@ -9,3 +9,22 @@
   margin: 0 auto;
   padding: 16px 0;
 }
+
+@media (max-width: 768px) {
+  .header_wrap {
+    padding: 10px 0;
+  }
+
+  .nav {
+    gap: 10px !important;
+  }
+  .btn {
+    font-size: 14px;
+    padding: 7px;
+    min-height: 30px;
+  }
+
+  .iconBtn {
+    display: none;
+  }
+}

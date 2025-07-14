@@ -1,9 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useMovieDetail } from '@/entities/movie/hooks/useMovieDetail';
-import { AppImage, Button, Loader } from '@/shared/ui';
+import { AppImage, Button, IconType, Loader } from '@/shared/ui';
 import { AddToFavorites } from '@/features/add-to-favorites/ui';
 import cls from './movie-detail.module.css';
+import Icon from '@/shared/ui/icon/icon';
 
 const MovieDetailPage = observer(() => {
   const { id } = useParams<{ id: string }>();
@@ -71,7 +72,8 @@ const MovieDetailPage = observer(() => {
             <div className={cls.rating}>
               <span className={cls.ratingLabel}>Рейтинг:</span>
               <span className={cls.ratingValue}>
-                ⭐ {movie.rating?.kp?.toFixed(1) || 'Нет данных'}
+                <Icon type={IconType.STAR} />
+                {movie.rating?.kp?.toFixed(1) || 'Нет данных'}
               </span>
               {movie.rating?.imdb && (
                 <span className={cls.ratingValue}>

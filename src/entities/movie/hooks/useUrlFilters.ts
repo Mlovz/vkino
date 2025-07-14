@@ -37,7 +37,7 @@ export const useUrlFilters = () => {
         ? parseInt(searchParams.get(FILTERS_KEYS.yearMax)!)
         : undefined,
     };
-  }, [searchParams]);
+  }, [searchParams.toString()]);
 
   const updateFilters = useCallback(
     (newFilters: Partial<Filters>) => {

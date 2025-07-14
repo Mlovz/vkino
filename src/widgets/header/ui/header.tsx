@@ -13,17 +13,24 @@ export const Header = observer(() => {
         <Row align='center' justify='between'>
           <img src={Logo} alt='' />
           <nav>
-            <Row align='center' gap={20}>
-              <Button as='a' href={ROUTES.main} variant='primary'>
+            <Row align='center' gap={20} className={cls.nav}>
+              <Button
+                as='a'
+                href={ROUTES.main}
+                variant='primary'
+                className={cls.btn}
+              >
                 Все фильмы
               </Button>
               <Button
                 as='a'
                 href={ROUTES.favorites}
                 variant='secondary'
-                className='flex items-center gap-2'
+                className={cls.btn}
               >
-                <Icon type={IconType.FAVORITE} />
+                <span className={cls.iconBtn}>
+                  <Icon type={IconType.FAVORITE} />
+                </span>
                 Избранное ({favoritesStore.favorites.length})
               </Button>
             </Row>

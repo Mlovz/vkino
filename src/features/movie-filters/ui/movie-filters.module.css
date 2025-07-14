@@ -75,3 +75,9 @@
 .yearSlider {
   width: 400px;
 }
+@media (max-width: 768px) {
+  .ratingSlider,
+  .yearSlider {
+    width: 300px;
+  }
+}

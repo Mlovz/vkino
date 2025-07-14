@@ -14,28 +14,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'yarn'
+          cache: 'npm'
 
-      - name: Install dependencies (Yarn)
-        run: yarn install --frozen-lockfile
+      - name: Install dependencies (npm)
+        run: npm ci
 
       - name: Lint
-        run: yarn lint
+        run: npm run lint
 
       - name: Prettier check
-        run: yarn prettier --check .
+        run: npx prettier --check .
 
       - name: Typecheck
-        run: yarn tsc --noEmit
+        run: npx tsc --noEmit
 
       - name: Test
-        run: yarn test --coverage
+        run: npm test -- --coverage
 
       - name: Build
-        run: yarn build
+        run: npm run build
 
       - name: Commitlint check
         if: github.event_name == 'push'
         run: |
           git log -1 --pretty=format:%s > commit-msg.txt
-          yarn commitlint --edit commit-msg.txt
+          npx commitlint --edit commit-msg.txt

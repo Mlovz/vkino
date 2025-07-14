@@ -4,20 +4,14 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
-  padding: 1rem;
+  /* padding: 0 1rem; */
 }
 
-/* @media (max-width: 1024px) {
+@media (max-width: 866px) {
   .movieList {
-    grid-template-columns: repeat(2, 1fr);
+    margin-top: 20px;
   }
 }
-
-@media (max-width: 640px) {
-  .movieList {
-    grid-template-columns: 1fr;
-  }
-} */
 
 .empty {
   text-align: center;

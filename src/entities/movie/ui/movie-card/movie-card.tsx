@@ -1,8 +1,9 @@
 import { memo } from 'react';
 import cls from './movie-card.module.css';
 import { Movie } from '../../types';
-import { AppImage } from '@/shared/ui';
+import { AppImage, IconType } from '@/shared/ui';
 import { AddToFavorites } from '@/features/add-to-favorites/ui';
+import Icon from '@/shared/ui/icon/icon';
 
 type Props = {
   movie: Movie;
@@ -34,7 +35,8 @@ export const MovieCard = memo(({ movie, onMovieClick }: Props) => {
             {movie.year}
           </span>
           <span className={cls.detailItem}>
-            ⭐{movie?.rating?.kp.toFixed(1)}
+            <Icon type={IconType.STAR} />
+            {movie?.rating?.kp.toFixed(1)}
           </span>
         </div>
         <div className={cls.genres}>

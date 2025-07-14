@@ -25,8 +25,8 @@ interface CacheEntry {
 
 class MoviesStore {
   private cache = new Map<string, CacheEntry>();
-  private debounceTimeouts = new Map<string, NodeJS.Timeout>();
-  private lastFilters: string | null = null; // Для отслеживания последних фильтров
+  private debounceTimeout: NodeJS.Timeout | null = null;
+  private lastLoadedKey: string | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -117,6 +117,8 @@ class MoviesStore {
         entry.totalPages = data.pages;
         entry.hasMore = nextPage < data.pages;
       });
+
+      this.lastLoadedKey = key;
     } catch {
       runInAction(() => {
         entry.error = 'Ошибка загрузки фильмов';
@@ -133,24 +135,32 @@ class MoviesStore {
     const key = this.createCacheKey(filters);
     const entry = this.getOrCreateCacheEntry(key);
 
-    if (!forceReload && this.lastFilters === key && entry.movies.length > 0) {
+    if (!forceReload && this.lastLoadedKey === key && entry.movies.length > 0) {
       return;
     }
 
-    if (this.debounceTimeouts.has(key)) {
-      clearTimeout(this.debounceTimeouts.get(key)!);
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout);
     }
 
-    const timeout = setTimeout(() => {
-      if (this.lastFilters !== key || forceReload) {
-        this.cache.delete(key);
-        this.lastFilters = key;
-      }
-      this.loadMovies(filters, false);
-      this.debounceTimeouts.delete(key);
-    }, 300);
+    runInAction(() => {
+      // entry.loading = true;
+    });
 
-    this.debounceTimeouts.set(key, timeout);
+    this.debounceTimeout = setTimeout(() => {
+      if (forceReload || this.lastLoadedKey !== key) {
+        if (this.lastLoadedKey !== key) {
+          entry.movies = [];
+          entry.currentPage = 0;
+          entry.hasMore = true;
+        }
+      }
+
+      console.log('load');
+
+      this.loadMovies(filters, false);
+      this.debounceTimeout = null;
+    }, 700);
   }
 
   loadMoviesInitial(filters: Filters) {
@@ -175,9 +185,11 @@ class MoviesStore {
 
   clearCache() {
     this.cache.clear();
-    this.debounceTimeouts.forEach(timeout => clearTimeout(timeout));
-    this.debounceTimeouts.clear();
-    this.lastFilters = null;
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout);
+      this.debounceTimeout = null;
+    }
+    this.lastLoadedKey = null;
   }
 }
 

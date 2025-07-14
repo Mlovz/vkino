@@ -74,7 +74,7 @@ export const MovieFilters = observer(
               </Row>
             </Col>
 
-            <Row align='start' gap={20} wrap='wrap'>
+            <Row align='start' gap={22} wrap='wrap'>
               <Col align='start' className={cls.filterGroup}>
                 <DualRangeSlider
                   label='Рейтинг'
